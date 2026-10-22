@@ -1,0 +1,26 @@
+name: Harmony Widget Build Check
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Check for HarmonyOS project files
+        shell: bash
+        run: |
+          echo 'Checking repository for a native HarmonyOS project...'
+          if find . -type f \( -name hvigorfile.ts -o -name oh-package.json5 -o -name module.json5 \) -not -path './.git/*' | grep -q .; then
+            echo 'HarmonyOS project files detected. SDK and signing configuration still need verification.'
+          else
+            echo 'No native HarmonyOS project files found. This workflow cannot produce a HAP yet.'
+            echo 'Add a compatible native HarmonyOS project before configuring the HAP build.'
+          fi
