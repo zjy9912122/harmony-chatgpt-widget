@@ -1,0 +1,195 @@
+
+name: Import HarmonyOS ChatGPT Widget
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import-project:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download ArkTS project
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          curl -L --fail \
+            https://codeload.github.com/1322208983/harmonyos-arkts-demo/zip/refs/heads/main \
+            -o /tmp/project.zip
+
+          mkdir -p /tmp/project
+          unzip -q /tmp/project.zip -d /tmp/project
+
+          SOURCE="$(find /tmp/project -mindepth 1 -maxdepth 1 -type d | head -n 1)"
+          test -n "$SOURCE"
+
+          rsync -a \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            "$SOURCE/" ./
+
+      - name: Add ChatGPT card
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p entry/src/main/ets/entryformability
+          mkdir -p entry/src/main/ets/widget/pages
+          mkdir -p entry/src/main/resources/base/profile
+
+          cat > entry/src/main/ets/entryformability/ChatGPTFormAbility.ets <<'EOF'
+          import { formBindingData, FormExtensionAbility, formInfo } from '@kit.FormKit';
+          import { Want } from '@kit.AbilityKit';
+
+          export default class ChatGPTFormAbility extends FormExtensionAbility {
+            onAddForm(_want: Want): formBindingData.FormBindingData {
+              return formBindingData.createFormBindingData({
+                title: 'ChatGPT',
+                subtitle: '随时开始一段对话',
+                prompt: '点击打开应用，继续与你的 AI 对话'
+              });
+            }
+
+            onAcquireFormState(_want: Want): formInfo.FormState {
+              return formInfo.FormState.READY;
+            }
+
+            onFormEvent(_formId: string, _message: string): void {}
+            onRemoveForm(_formId: string): void {}
+          }
+          EOF
+
+          cat > entry/src/main/ets/widget/pages/ChatGPTCard.ets <<'EOF'
+          @Entry
+          @Component
+          struct ChatGPTCard {
+            @Local title: string = 'ChatGPT';
+            @Local subtitle: string = '随时开始一段对话';
+            @Local prompt: string = '点击打开应用，继续与你的 AI 对话';
+
+            build() {
+              Column({ space: 10 }) {
+                Row({ space: 8 }) {
+                  Text('✦').fontSize(24).fontColor('#FFFFFF')
+                  Column({ space: 2 }) {
+                    Text(this.title)
+                      .fontSize(19)
+                      .fontWeight(FontWeight.Medium)
+                      .fontColor('#FFFFFF')
+                    Text(this.subtitle)
+                      .fontSize(12)
+                      .fontColor('#E6FFFFFF')
+                  }
+                  .alignItems(HorizontalAlign.Start)
+                  .layoutWeight(1)
+                }
+                .width('100%')
+
+                Text(this.prompt)
+                  .fontSize(13)
+                  .fontColor('#F2FFFFFF')
+                  .width('100%')
+
+                Row() {
+                  Text('开始对话')
+                    .fontSize(13)
+                    .fontColor('#FFFFFF')
+                  Blank()
+                  Text('↗').fontSize(16).fontColor('#FFFFFF')
+                }
+                .padding({ left: 12, right: 12, top: 9, bottom: 9 })
+                .width('100%')
+                .backgroundColor('#30FFFFFF')
+                .borderRadius(14)
+              }
+              .padding(16)
+              .width('100%')
+              .height('100%')
+              .backgroundColor('#CC202124')
+              .border({ width: 1, color: '#40FFFFFF' })
+              .borderRadius(22)
+              .justifyContent(FlexAlign.Center)
+            }
+          }
+          EOF
+
+          cat > entry/src/main/resources/base/profile/form_config.json <<'EOF'
+          {
+            "forms": [
+              {
+                "name": "ChatGPTCard",
+                "displayName": "ChatGPT 桌面卡片",
+                "description": "快速进入 ChatGPT 对话",
+                "src": "./ets/widget/pages/ChatGPTCard.ets",
+                "uiSyntax": "arkts",
+                "isDefault": true,
+                "isDynamic": true,
+                "updateEnabled": false,
+                "defaultDimension": "2*2",
+                "supportDimensions": ["2*2", "2*4"]
+              }
+            ]
+          }
+          EOF
+
+      - name: Register card extension
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path("entry/src/main/module.json5")
+          s = p.read_text(encoding="utf-8")
+
+          if "ChatGPTFormAbility" not in s:
+              block = '''
+              "extensionAbilities": [
+                {
+                  "name": "ChatGPTFormAbility",
+                  "srcEntry": "./ets/entryformability/ChatGPTFormAbility.ets",
+                  "label": "ChatGPT 桌面卡片",
+                  "description": "与 ChatGPT 互动的桌面卡片",
+                  "type": "form",
+                  "exported": true,
+                  "metadata": [
+                    {
+                      "name": "ohos.extension.form",
+                      "resource": "$profile:form_config"
+                    }
+                  ]
+                }
+              ],
+          '''
+              marker = '    "requestPermissions":'
+              if marker not in s:
+                  raise SystemExit("找不到 requestPermissions，停止修改以避免破坏配置")
+              s = s.replace(marker, block + marker, 1)
+              p.write_text(s, encoding="utf-8")
+
+          print("Card extension configuration checked.")
+          PY
+
+      - name: Check required files
+        run: |
+          set -e
+          test -f entry/src/main/module.json5
+          test -f entry/src/main/ets/entryformability/ChatGPTFormAbility.ets
+          test -f entry/src/main/ets/widget/pages/ChatGPTCard.ets
+          test -f entry/src/main/resources/base/profile/form_config.json
+
+      - name: Commit project to repository
+        shell: bash
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Import ArkTS project and add ChatGPT home-screen card"
+          git push
