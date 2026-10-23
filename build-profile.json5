@@ -1,0 +1,40 @@
+{
+  "app": {
+    // 签名配置已清空：原内容含本机调试证书路径与密码明文，不适合入库。
+    // 自己跑真机请用 DevEco Studio 的 File > Project Structure > Signing Configs
+    // 勾选 "Automatically generate signature"（需华为账号并完成实名认证），会自动回填此处。
+    // 仅用预览器（Previewer）则无需签名。
+    "signingConfigs": [],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compatibleSdkVersion": "6.1.1(24)",
+        "targetSdkVersion": "6.1.1(24)",
+        "runtimeOS": "HarmonyOS"
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug"
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

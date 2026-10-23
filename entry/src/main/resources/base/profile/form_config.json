@@ -1,0 +1,16 @@
+{
+  "forms": [
+    {
+      "name": "ChatGPTCard",
+      "displayName": "ChatGPT 桌面卡片",
+      "description": "快速进入 ChatGPT 对话",
+      "src": "./ets/widget/pages/ChatGPTCard.ets",
+      "uiSyntax": "arkts",
+      "isDefault": true,
+      "isDynamic": true,
+      "updateEnabled": false,
+      "defaultDimension": "2*2",
+      "supportDimensions": ["2*2", "2*4"]
+    }
+  ]
+}

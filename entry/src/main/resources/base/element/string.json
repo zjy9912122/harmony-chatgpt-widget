@@ -1,0 +1,268 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "应用使用频率分析工具"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "应用使用频率分析"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "应用分析"
+    },
+    {
+      "name": "get_bundle_info_reason",
+      "value": "获取已安装应用列表"
+    },
+    {
+      "name": "get_bundle_info_privileged_reason",
+      "value": "获取应用详细信息"
+    },
+    {
+      "name": "get_usage_stats_reason",
+      "value": "分析应用使用频率"
+    },
+    {
+      "name": "app_name",
+      "value": "应用分析"
+    },
+    {
+      "name": "high_frequency",
+      "value": "高频应用"
+    },
+    {
+      "name": "medium_frequency",
+      "value": "中频应用"
+    },
+    {
+      "name": "low_frequency",
+      "value": "低频应用"
+    },
+    {
+      "name": "suggest_home",
+      "value": "建议放在桌面首页"
+    },
+    {
+      "name": "suggest_folder",
+      "value": "建议放入文件夹"
+    },
+    {
+      "name": "suggest_hide",
+      "value": "可考虑隐藏或卸载"
+    },
+    {
+      "name": "no_data",
+      "value": "暂无数据"
+    },
+    {
+      "name": "no_data_high",
+      "value": "暂无高频应用，快去使用吧"
+    },
+    {
+      "name": "no_data_medium",
+      "value": "暂无中频应用"
+    },
+    {
+      "name": "no_data_low",
+      "value": "暂无低频应用，所有应用都很活跃"
+    },
+    {
+      "name": "total_time",
+      "value": "使用时长"
+    },
+    {
+      "name": "launch_count",
+      "value": "启动次数"
+    },
+    {
+      "name": "last_used",
+      "value": "最后使用"
+    },
+    {
+      "name": "activity_score",
+      "value": "活跃度"
+    },
+    {
+      "name": "refresh",
+      "value": "刷新"
+    },
+    {
+      "name": "settings",
+      "value": "设置"
+    },
+    {
+      "name": "time_granularity",
+      "value": "统计周期"
+    },
+    {
+      "name": "today",
+      "value": "今天"
+    },
+    {
+      "name": "last_7_days",
+      "value": "近7天"
+    },
+    {
+      "name": "last_30_days",
+      "value": "近30天"
+    },
+    {
+      "name": "weight_settings",
+      "value": "权重设置"
+    },
+    {
+      "name": "time_weight",
+      "value": "使用时长权重"
+    },
+    {
+      "name": "count_weight",
+      "value": "启动次数权重"
+    },
+    {
+      "name": "recency_weight",
+      "value": "最近使用权重"
+    },
+    {
+      "name": "consistency_weight",
+      "value": "使用一致性权重"
+    },
+    {
+      "name": "threshold_settings",
+      "value": "分类阈值"
+    },
+    {
+      "name": "high_threshold",
+      "value": "高频阈值"
+    },
+    {
+      "name": "medium_threshold",
+      "value": "中频阈值"
+    },
+    {
+      "name": "save",
+      "value": "保存"
+    },
+    {
+      "name": "reset",
+      "value": "恢复默认"
+    },
+    {
+      "name": "generate_suggestion",
+      "value": "生成排序建议"
+    },
+    {
+      "name": "app_detail",
+      "value": "应用详情"
+    },
+    {
+      "name": "usage_trend",
+      "value": "使用趋势"
+    },
+    {
+      "name": "share",
+      "value": "分享导出"
+    },
+    {
+      "name": "share_text",
+      "value": "分享文本"
+    },
+    {
+      "name": "share_json",
+      "value": "导出JSON"
+    },
+    {
+      "name": "copy_clipboard",
+      "value": "复制到剪贴板"
+    },
+    {
+      "name": "copied",
+      "value": "已复制"
+    },
+    {
+      "name": "history",
+      "value": "历史记录"
+    },
+    {
+      "name": "history_compare",
+      "value": "趋势对比"
+    },
+    {
+      "name": "app_limits",
+      "value": "使用限额"
+    },
+    {
+      "name": "set_limit",
+      "value": "设置限额"
+    },
+    {
+      "name": "limit_minutes",
+      "value": "限额（分钟）"
+    },
+    {
+      "name": "limit_exceeded",
+      "value": "已超限"
+    },
+    {
+      "name": "limit_warning",
+      "value": "即将超限"
+    },
+    {
+      "name": "daily_limit",
+      "value": "每日限额"
+    },
+    {
+      "name": "today_usage",
+      "value": "今日已用"
+    },
+    {
+      "name": "remaining",
+      "value": "剩余"
+    },
+    {
+      "name": "add_limit",
+      "value": "添加限额"
+    },
+    {
+      "name": "edit_limit",
+      "value": "编辑限额"
+    },
+    {
+      "name": "remove_limit",
+      "value": "删除限额"
+    },
+    {
+      "name": "no_limits",
+      "value": "尚未设置任何使用限额"
+    },
+    {
+      "name": "comparison",
+      "value": "与上次对比"
+    },
+    {
+      "name": "increased",
+      "value": "增加"
+    },
+    {
+      "name": "decreased",
+      "value": "减少"
+    },
+    {
+      "name": "total_apps",
+      "value": "应用总数"
+    },
+    {
+      "name": "average_score",
+      "value": "平均活跃度"
+    },
+    {
+      "name": "most_used",
+      "value": "最活跃应用"
+    },
+    {
+      "name": "close",
+      "value": "关闭"
+    }
+  ]
+}

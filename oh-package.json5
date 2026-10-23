@@ -1,0 +1,10 @@
+{
+  "modelVersion": "6.1.1",
+  "name": "appusageanalyzer",
+  "version": "1.0.0",
+  "description": "鸿蒙应用使用频率分析工具",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {}
+}

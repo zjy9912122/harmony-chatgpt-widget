@@ -1,0 +1,37 @@
+# ---- 构建产物 ----
+/build
+/entry/build
+/entry/.preview
+/.preview
+.hvigor/
+oh_modules/
+*.hap
+*.hsp
+*.har
+*.abc
+
+# ---- IDE ----
+.idea/
+.clangd
+.cxx
+*.iml
+
+# ---- 签名与密钥（务必不要提交）----
+*.p12
+*.cer
+*.p7b
+*.csr
+*.keystore
+
+# ---- 本机路径相关 ----
+local.properties
+
+# ---- 排查过程产生的临时文件 ----
+.preview_errors*.txt
+.assemble*.txt
+*.bak_move
+*.bak_sdkfix
+
+# ---- 系统 ----
+Thumbs.db
+.DS_Store
